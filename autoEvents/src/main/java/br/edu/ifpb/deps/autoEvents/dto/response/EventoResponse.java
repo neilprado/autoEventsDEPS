@@ -12,7 +12,6 @@ public class EventoResponse {
     private String pais;
     private LocalDateTime dataEvento;
     private double valorIngresso;
-    private Long usuarioId;
 
     public Long getId() {
         return id;
@@ -62,13 +61,7 @@ public class EventoResponse {
         this.valorIngresso = valorIngresso;
     }
 
-    public Long getUsuarioId() {
-        return usuarioId;
-    }
 
-    public void setUsuarioId(Long usuarioId) {
-        this.usuarioId = usuarioId;
-    }
 
     public static EventoResponse from(Evento evento){
         EventoResponse eventoResponse = new EventoResponse();
@@ -78,7 +71,6 @@ public class EventoResponse {
         eventoResponse.setNome(evento.getNome());
         eventoResponse.setPais(evento.getPais());
         eventoResponse.setValorIngresso(evento.getValorIngresso());
-        eventoResponse.setUsuarioId(evento.getUsuario().getId());
 
         return eventoResponse;
     }
@@ -92,7 +84,6 @@ public class EventoResponse {
             eventoResponse.setNome(evento.getNome());
             eventoResponse.setPais(evento.getPais());
             eventoResponse.setValorIngresso(evento.getValorIngresso());
-            eventoResponse.setUsuarioId(evento.getUsuario().getId());
 
             return eventoResponse;
         });

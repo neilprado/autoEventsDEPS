@@ -2,6 +2,8 @@ package br.edu.ifpb.deps.autoEvents.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Evento {
@@ -14,9 +16,9 @@ public class Evento {
     private LocalDateTime dataEvento;
     private double valorIngresso;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", foreignKey = @ForeignKey(name = "fk_evento_usuario_id"))
-    private Usuario usuario;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "evento_usuario", joinColumns = @JoinColumn(name = "id_evento"), inverseJoinColumns = @JoinColumn(name = "id_usuario"))
+    private List<Usuario> usuarios = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -66,11 +68,11 @@ public class Evento {
         this.valorIngresso = valorIngresso;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public List<Usuario> getUsuarios() {
+        return usuarios;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
     }
 }

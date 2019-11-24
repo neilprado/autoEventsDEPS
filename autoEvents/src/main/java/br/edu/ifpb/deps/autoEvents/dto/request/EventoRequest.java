@@ -1,6 +1,7 @@
 package br.edu.ifpb.deps.autoEvents.dto.request;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class EventoRequest {
     private String nome;
@@ -8,7 +9,6 @@ public class EventoRequest {
     private String pais;
     private LocalDateTime dataEvento;
     private double valorIngresso;
-    private Long usuarioId;
 
     public String getNome() {
         return nome;
@@ -50,11 +50,4 @@ public class EventoRequest {
         this.valorIngresso = valorIngresso;
     }
 
-    public Long getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(Long usuarioId) {
-        this.usuarioId = usuarioId;
-    }
 }

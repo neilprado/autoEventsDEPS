@@ -11,6 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Service
 public class EventoService {
@@ -24,15 +27,13 @@ public class EventoService {
 
     public Evento cadastrarEvento(EventoRequest request){
         Evento evento = new Evento();
-
-        Usuario usuario = this.usuarioRepository.findById(request.getUsuarioId()).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
+        List<Usuario> usuarios = new ArrayList<>();
 
         evento.setNome(request.getNome());
         evento.setCidade(request.getCidade());
         evento.setDataEvento(request.getDataEvento());
         evento.setPais(request.getPais());
-        evento.setUsuario(usuario);
+        evento.setUsuarios(usuarios);
         evento.setValorIngresso(request.getValorIngresso());
 
         return this.repository.save(evento);
@@ -50,17 +51,15 @@ public class EventoService {
     }
 
     public Evento atualizarEvento(Long id, EventoRequest request){
+        List<Usuario> usuarios = new ArrayList<>();
         Evento evento = this.repository.findById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Evento não encontrado"));
-
-        Usuario usuario = this.usuarioRepository.findById(request.getUsuarioId()).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
 
         evento.setNome(request.getNome());
         evento.setCidade(request.getCidade());
         evento.setDataEvento(request.getDataEvento());
         evento.setPais(request.getPais());
-        evento.setUsuario(usuario);
+        evento.setUsuarios(usuarios);
         evento.setValorIngresso(request.getValorIngresso());
 
         return this.repository.save(evento);
@@ -71,4 +70,5 @@ public class EventoService {
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Evento não encontrado"));
         this.repository.delete(evento);
     }
+
 }
